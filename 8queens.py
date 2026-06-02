@@ -4,7 +4,7 @@
 #     - No AI or web search help 
 #     - Except... web searches for:
 #       o  point-slope line equation 
-#       o  hape rotation      
+#       o  shape rotation      
 #       o  handfull of python-specific questions (i.e., set() syntax)
 #
 #   Run with:
@@ -19,7 +19,7 @@
 #
 #   Optimization ideas:
 #     - Careful look at code & refactoring with speed-up in mind
-#     - Use threading to multiple solution trees across multiple cores 
+#     - Use threading to run multiple solution trees across multiple cores 
 #     - Wikipedia page suggests other (non-obvious) optimizations
 #
 import time
@@ -31,6 +31,7 @@ queen_count = 8
 board_size = (8, 8)
 X = 0
 Y = 1
+
 
 # Globals
 queens_history = []
