@@ -14,20 +14,7 @@
 #     - 12 fundamental solutions are slightly different than those shown on Wikipedia page
 #     - Likely a difference in the order of reduction operations
 #
-#   Runtime: 
-#     ~25 minutes
-#
-#   Optimization ideas:
-#     - Implement true backtracking as referenced my Alex & on Wikipedia page
-#     - Ah, right... After looking up backtracking I see execution time is 50ms (vs. my ~25 minutes)
-#       Check as rows are stacked vs. entire board checking as I've done (brute force)
-#       Fail... but, I'd like to think that next round (w/o looking up) would have been better
-#     - Salvage plan (TODO): Have each recursion level place exactly one queen - in the next row.
-#       Then, iterate over column only. Even with current code structure otherwise, this should 
-#       speed things up significantly. 
-#     - Likely better coordinate/tree handling/effeciency in numpy or other
-#     - Careful look at code & refactoring with speed-up in mind
-#     - Use threading to run multiple solution trees across multiple cores 
+#   Optimizations:
 #     - Wikipedia page suggests other optimizations - i.e., 1972 backtracking algorithm
 #
 import time
@@ -55,22 +42,24 @@ def init_queens(queens):
 
 # find_queens()
 #   Recursively find queens at a given level (up to queen_count)
+#   level == row (y): each recursion level places exactly one queen in the next row.
+#   Only iterate over columns (x) - row conflicts cannot happen
 #
 def find_queens(queens, level):
-    for x in range(board_size[X]):  
-        for y in range(board_size[Y]):
-            # Test each candidate at this level
-            if (not test_candidate(queens, (x,y))):
-                new_queens = queens.copy()
-                add_queen(new_queens, (x,y), level)
-                if level == queen_count - 1:
-                    # This is the final level, so success
-                    # Check that this is a unique set
-                    if is_unique(new_queens):
-                        print(f"Found queens: {new_queens}")
-                else:
-                    # Advance to the next level
-                    find_queens(new_queens, level + 1)
+    for x in range(board_size[X]):
+        y = level  # one queen per row; level determines which row
+        # Test each candidate at this level
+        if (not test_candidate(queens, (x,y))):
+            new_queens = queens.copy()
+            add_queen(new_queens, (x,y), level)
+            if level == queen_count - 1:
+                # This is the final level, so success
+                # Check that this is a unique set
+                if is_unique(new_queens):
+                    print(f"Found queens: {new_queens}")
+            else:
+                # Advance to the next level
+                find_queens(new_queens, level + 1)
 
 
 # test_candidate()
@@ -220,20 +209,12 @@ def mirror(queens, axis):
 def main():
     print(f"{queen_count} queens on {board_size[X]} x {board_size[Y]} board ")
 
-    # Loop through all 1st row queen locations
-    # Starting on other rows will just produces duplicates
+    # Search all solutions starting from row 0, column by column
     #
-    x = 0
     start_all = time.perf_counter()
-    for y in range(board_size[Y]):
-        start = time.perf_counter()
-        queens = []
-        init_queens(queens)
-        print(f"Start ({x},{y})")
-        add_queen(queens, (x,y), 0)
-        find_queens(queens.copy(), 1)
-        end = time.perf_counter()
-        print(f"End   ({x},{y}) time: {int(end - start)} seconds")
+    queens = []
+    init_queens(queens)
+    find_queens(queens, 0)
     end_all = time.perf_counter()
     print(f"Total time: {int(end_all - start_all)} seconds")
     print(f"Total solutions: {len(queens_history)}")
