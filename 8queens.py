@@ -25,7 +25,7 @@
 #     - Likely better coordinate/tree handling/effeciency in numpy or other
 #     - Careful look at code & refactoring with speed-up in mind
 #     - Use threading to run multiple solution trees across multiple cores 
-#     - Wikipedia page suggests other (non-obvious) optimizations
+#     - Wikipedia page suggests other optimizations - i.e., 1972 backtracking algorithm
 #
 import time
 import sys
