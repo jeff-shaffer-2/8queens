@@ -10,6 +10,10 @@
 #   Run with:
 #     $ python -u 8queens.py | tee out.log
 #
+#   See log.out in repo for results
+#     - 12 fundamental solutions are slightly different than those shown on Wikipedia page
+#     - Likely a difference in the order of reduction operations
+#
 #   Runtime: 
 #     ~25 minutes
 #
