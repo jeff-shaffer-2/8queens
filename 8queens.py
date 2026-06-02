@@ -22,6 +22,9 @@
 #     - Ah, right... After looking up backtracking I see execution time is 50ms (vs. my ~25 minutes)
 #       Check as rows are stacked vs. entire board checking as I've done (brute force)
 #       Fail... but, I'd like to think that next round (w/o looking up) would have been better
+#     - Salvage plan (TODO): Have each recursion level place exactly one queen - in the next row.
+#       Then, iterate over column only. Even with current code structure otherwise, this should 
+#       speed things up significantly. 
 #     - Likely better coordinate/tree handling/effeciency in numpy or other
 #     - Careful look at code & refactoring with speed-up in mind
 #     - Use threading to run multiple solution trees across multiple cores 
