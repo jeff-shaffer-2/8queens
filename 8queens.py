@@ -8,7 +8,7 @@
 #       o  handfull of python-specific questions (i.e., set() syntax)
 #
 #   Run with:
-#     $ python -u 8queens.py | tee tmp.log
+#     $ python -u 8queens.py | tee out.log
 #
 #   Runtime: 
 #     ~25 minutes
