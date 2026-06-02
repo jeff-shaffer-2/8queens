@@ -19,6 +19,7 @@
 #
 #   Optimization ideas:
 #     - Implement true backtracking as referenced my Alex & on Wikipedia page
+#     - Ah, right... After looking up backtracking I see execution time is 50ms (vs. my ~25 minutes)
 #     - Likely better coordinate/tree handling/effeciency in numpy or other
 #     - Careful look at code & refactoring with speed-up in mind
 #     - Use threading to run multiple solution trees across multiple cores 
